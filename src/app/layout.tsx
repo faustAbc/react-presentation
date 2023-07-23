@@ -1,9 +1,9 @@
 import { WebContainerCSS } from "@/components/common/WebContainer/WebContainerCSS";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Test",
@@ -20,7 +20,7 @@ export default function RootLayout({
       <head>
         <WebContainerCSS />
       </head>
-      <body className={inter.className + " p-8"}>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
