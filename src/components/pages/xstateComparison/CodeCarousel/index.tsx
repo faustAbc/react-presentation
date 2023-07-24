@@ -61,13 +61,13 @@ export const CodeCarousel: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <>
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      {/* <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
         <defs>
           <filter id="goo">
             <feGaussianBlur
               in="SourceGraphic"
               result="blur"
-              stdDeviation="3"
+              stdDeviation="2"
             ></feGaussianBlur>
             <feColorMatrix
               in="blur"
@@ -79,7 +79,7 @@ export const CodeCarousel: FC<PropsWithChildren> = ({ children }) => {
             <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
           </filter>
         </defs>
-      </svg>
+      </svg> */}
 
       <div className="h-full w-full relative">
         <div className="h-full w-full bg-slate-600 mb-8 overflow-hidden">
@@ -117,22 +117,36 @@ export const CodeCarousel: FC<PropsWithChildren> = ({ children }) => {
                 onClick={() =>
                   sendProgressMachine({ type: "CHANGE", payload: index })
                 }
-                animate={{
-                  background: index <= currentPage ? "white" : "rgb(24 24 27)",
-                }}
-                className={clsx(`w-2 h-2 rounded-full cursor-pointer`)}
+                className={clsx(
+                  `w-4 h-4 rounded-full cursor-pointer bg-zinc-900`
+                )}
                 key={index}
               />
             ))}
-            <motion.div
-              className="h-3 w-3 rounded-full bg-white absolute -top-0.5 left-0"
-              animate={{
-                translateX: 24 * currentPage,
-              }}
-              transition={{
-                duration: 0.4,
-              }}
-            />
+            <motion.div className="absolute pointer-events-none top-0.5 left-0.5 right-[-10px]">
+              <motion.div
+                className="flex overflow-hidden gap-x-5 top-1 rounded-r-full"
+                animate={{
+                  width: 12 + 32 * currentPage,
+                }}
+                transition={{
+                  type: "spring",
+                  bounce: 0.3,
+                }}
+              >
+                {Array.from({ length: childrenCount }).map((_, index) => (
+                  <motion.div
+                    key={index}
+                    className={clsx(
+                      "h-3 w-3 rounded-full bg-white right-0 sticky shrink-0",
+                      {
+                        "ml-auto": index === childrenCount - 1,
+                      }
+                    )}
+                  />
+                ))}
+              </motion.div>
+            </motion.div>
           </div>
         </div>
         <ChevronLeftIcon
