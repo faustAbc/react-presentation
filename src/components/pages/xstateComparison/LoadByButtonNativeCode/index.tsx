@@ -4,6 +4,7 @@ import { appendFile, commonFilesLoading } from "@/config/code/common";
 import {
   Sandpack,
   SandpackCodeEditor,
+  SandpackCodeViewer,
   SandpackLayout,
   SandpackPreview,
   SandpackProvider,
@@ -65,11 +66,61 @@ export const LoadByButtonNativeCode = () => (
   />
 );
 
+export const loadByButtonXStateCodeDescriptionFiles = {
+  "/App.js": {
+    code: `import { createMachine, assign } from "xstate";
+import { loadPosts } from "./utils";
+
+const fetchMachine = createMachine({
+  id: "fetch",
+  initial: "idle",
+  context: {
+    posts: [],
+  },
+  states: {
+    idle: {
+      on: { FETCH: "loading" },
+    },
+    loading: {
+      invoke: {
+        id: "load-posts",
+        src: loadPosts,
+        onDone: {
+          target: "success",
+          actions: assign({
+            posts: (context, event) => event.data,
+          }),
+        },
+      },
+    },
+    success: {
+      on: {
+        FETCH: "loading",
+      },
+    },
+  },
+});
+`,
+    active: true,
+  },
+} satisfies SandpackProps["files"];
+
 export const LoadByButtonXStateCodeDescription = () => (
-  <SandpackProvider template="react" files={commonFilesLoading}>
-    <SandpackLayout>
-      <SandpackCodeEditor />
-      <div>hello</div>
+  <SandpackProvider
+    options={{
+      classes: {
+        // "sp-wrapper": "custom-wrapper",
+        // "sp-layout": "h-full",
+        "sp-editor-viewer": "sp-editor-viewer-1",
+      },
+    }}
+    template="react"
+    theme={"dark"}
+    files={loadByButtonXStateCodeDescriptionFiles}
+  >
+    <SandpackLayout className="test">
+      <SandpackCodeViewer />
+      <div className="flex-1">hello</div>
     </SandpackLayout>
   </SandpackProvider>
 );

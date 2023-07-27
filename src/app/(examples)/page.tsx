@@ -11,9 +11,11 @@ import { ProgressPanel } from "@/components/pages/xstateComparison/ProgressPanel
 
 import { inspect } from "@xstate/inspect";
 
-inspect({
-  iframe: false,
-});
+if (typeof window !== "undefined") {
+  inspect({
+    iframe: false,
+  });
+}
 
 const ExamplesPage = () => {
   return (
@@ -136,8 +138,8 @@ const ExamplesPage = () => {
           <span>Let's see how you would probably do it with React hooks:</span>
           <LoadByButtonNativeCode />
           <span>
-            Nothing fancy, we just fetch some data in{" "}
-            <InlineCode text="loadData" />, store it in{" "}
+            Nothing fancy, we just fetch some data in
+            <InlineCode text="loadData" />, store it in
             <InlineCode text="posts" /> variable and trigger it by clicking a
             button.
           </span>
@@ -155,13 +157,16 @@ const ExamplesPage = () => {
       </div>
       <div className="h-[400px] m-16">
         <CodeCarousel>
-          <div className="bg-blue-700 h-[400px]">test 1</div>
-          <div className="bg-blue-700 h-[100%]">test 2</div>
-          <div className="bg-blue-700 h-[100%]">test 3</div>
-          <div className="bg-blue-700 h-[100%]">test 4</div>
-          <div className="bg-blue-700 h-[100%]">test 5</div>
+          <div className=" h-[400px]">
+            [XState interactive diagram on the left with description on the
+            right]
+          </div>
+          <LoadByButtonXStateCodeDescription />
+          <div className=" h-[100%]">test 2</div>
+          <div className=" h-[100%]">test 3</div>
+          <div className=" h-[100%]">test 4</div>
+          <div className=" h-[100%]">test 5</div>
         </CodeCarousel>
-        {/* <LoadByButtonXStateCodeDescription /> */}
       </div>
     </div>
   );

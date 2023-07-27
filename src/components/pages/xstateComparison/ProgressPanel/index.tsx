@@ -24,7 +24,7 @@ const changeProgressMachine = createMachine({
   states: {
     idle: {
       after: {
-        // 2000: {
+        // 5000: {
         //   internal: false,
         //   target: "idle",
         //   actions: assign({
@@ -39,11 +39,13 @@ const changeProgressMachine = createMachine({
 });
 
 const visibilityMachine = createMachine({
+  /** @xstate-layout N4IgpgJg5mDOIC5QDcCWtUCNUBtUBcBPAWgFsBDAYwAtUA7MAOlogjDoGIBlACQHkA6gG0ADAF1EoAA4B7DPlQy6kkAA9EARgBsATkYiDBgOxaATDoDMOgCwBWCwBoQhTaaP7D220dumNG6wAOAF9gpzQMbDwiMipaBkYIrBwwDn4ANQBRACVRCSQQWXlFZQL1BGsNdy0jHV1bDXMrO0dnTQtTDwMvHz8AkLCQJKiCEgoaeiZhlI5VWHxyfCZyADMlgCcACgtDAEoOYdxR2ImE6bA8lSKCEpVy7T1DYzNLG3snFwRAjUZbTy1vL5-EFQuF0FgjjFxvEmNQZMgwOtIBwAKoAOQyOUuBWuCiUd0QlWqtXqjVeLQ+iG+v3+gL6INBIDoMjY8AKh2iYzikyuchu+LKiGIWkpCGFjI5x2hk2YqFY7F5xQFoHK1lMosCtn0gQsFmsOh0Ik11gZYMikK5pym4MwKUV-NKKsQ5hEjBqdR0DSab1an0C7lsOr1BqNthNAzNEM5JxhzHhiMg9rxjrUiFsYcYRj1VhEpkDRkCOg0osN2t1+sNxqCplCoSAA */
   predictableActionArguments: true,
   id: "visibility-machine",
   initial: "hidden",
+  tsTypes: {} as import("./index.typegen").Typegen1,
   schema: {
-    events: {} as { type: "SHOW" },
+    events: {} as { type: "SHOW" } | { type: "HOVER" } | { type: "UNHOVER" },
   },
   states: {
     hidden: {
@@ -51,9 +53,20 @@ const visibilityMachine = createMachine({
         SHOW: "visible",
       },
     },
+
     visible: {
       after: {
-        1000: "hidden",
+        3000: "hidden",
+      },
+
+      on: {
+        HOVER: "hovered",
+      },
+    },
+
+    hovered: {
+      on: {
+        UNHOVER: "visible",
       },
     },
   },
@@ -62,7 +75,9 @@ const visibilityMachine = createMachine({
 export const ProgressPanel = () => {
   const [state] = useMachine(changeProgressMachine);
 
-  const [visibilityState, sendVisibility] = useMachine(visibilityMachine);
+  const [visibilityState, sendVisibility] = useMachine(visibilityMachine, {
+    devTools: true,
+  });
 
   useEffect(() => {
     if (state.context.progress !== 0) sendVisibility("SHOW");
@@ -75,12 +90,15 @@ export const ProgressPanel = () => {
         animate={visibilityState.value}
         variants={{
           visible: { top: 90 },
+          hovered: { top: 90 },
           hidden: { top: -200 },
         }}
         transition={{
           type: "spring",
           bounce: 0.2,
         }}
+        onMouseEnter={() => sendVisibility({ type: "HOVER" })}
+        onMouseLeave={() => sendVisibility({ type: "UNHOVER" })}
         className="z-10 top-[120px] right-8 w-[290px] bg-zinc-800 rounded-2xl p-4 flex flex-col gap-2 sticky"
       >
         <span>Progress</span>
