@@ -81,7 +81,7 @@ export const ProgressPanel = () => {
 
   useEffect(() => {
     if (state.context.progress !== 0) sendVisibility("SHOW");
-  }, [state.context.progress]);
+  }, [sendVisibility, state.context.progress]);
 
   return (
     <div className="absolute top-0 right-0 bottom-0 mt-8 mr-8">
@@ -99,7 +99,7 @@ export const ProgressPanel = () => {
         }}
         onMouseEnter={() => sendVisibility({ type: "HOVER" })}
         onMouseLeave={() => sendVisibility({ type: "UNHOVER" })}
-        className="z-10 top-[120px] right-8 w-[290px] bg-zinc-800 rounded-2xl p-4 flex flex-col gap-2 sticky"
+        className="z-10 top-[120px] right-8 w-[290px] bg-zinc-800/80 rounded-2xl p-4 flex flex-col gap-2 sticky backdrop-blur-md "
       >
         <span>Progress</span>
         <div className="w-full bg-zinc-900 rounded-full h-2.5 ">

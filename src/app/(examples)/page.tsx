@@ -1,6 +1,7 @@
 "use client";
 
 import { InlineCode } from "@/components/common/InlineCode";
+import { Chip } from "@/components/pages/xstateComparison/Chip";
 import { CodeCarousel } from "@/components/pages/xstateComparison/CodeCarousel";
 import {
   LoadByButtonNativeCode,
@@ -8,8 +9,46 @@ import {
 } from "@/components/pages/xstateComparison/LoadByButtonNativeCode";
 import { LoadByButtonXStateCode } from "@/components/pages/xstateComparison/LoadByButtonXStateCode";
 import { ProgressPanel } from "@/components/pages/xstateComparison/ProgressPanel";
-
 import { inspect } from "@xstate/inspect";
+import CursorArrowRaysOutline from "@heroicons/react/24/outline/CursorArrowRaysIcon";
+import BookOpenOutline from "@heroicons/react/24/outline/BookOpenIcon";
+import StarOutline from "@heroicons/react/24/outline/StarIcon";
+import StarSolid from "@heroicons/react/24/solid/StarIcon";
+import { createMachine, assign, interpret } from "xstate";
+import clsx from "clsx";
+import { Highlight } from "@/components/common/Highlight";
+
+const fetchMachine = createMachine({
+  id: "fetch",
+  initial: "idle",
+  context: {
+    posts: [],
+  },
+  states: {
+    idle: {
+      on: { FETCH: "loading" },
+    },
+    loading: {
+      invoke: {
+        id: "load-posts",
+        src: () => Promise.resolve([]),
+        onDone: {
+          target: "success",
+          actions: assign({
+            posts: (context, event) => event.data,
+          }),
+        },
+      },
+    },
+    success: {
+      on: {
+        FETCH: "loading",
+      },
+    },
+  },
+});
+
+interpret(fetchMachine, { devTools: true }).start({});
 
 if (typeof window !== "undefined") {
   inspect({
@@ -20,6 +59,7 @@ if (typeof window !== "undefined") {
 const ExamplesPage = () => {
   return (
     <div className="relative flex flex-col gap-32 mt-16">
+      <div className="h-[400px] w-[300px] rotate-45 blur-3xl bg-blue-700 absolute top-[120px] -left-[240px]"></div>
       <ProgressPanel />
       <div className="p-8 max-w-screen-lg m-auto">
         <h1 className="text-6xl text-center font-semibold">
@@ -27,59 +67,73 @@ const ExamplesPage = () => {
         </h1>
         <div className="mt-6">
           A comparison of
-          <span className="mx-3 before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-[#ffd800] relative">
-            <span className="relative text-black font-extrabold">
-              day-to-day
-            </span>
-          </span>
+          <Highlight>day-to-day</Highlight>
           tasks implemented in XState and natively in React
         </div>
         <div className="flex mt-4">
-          <div className="w-fit flex justify-center items-center m-1 font-medium py-2 px-3 bg-gray-500 bg-opacity-20 rounded-full text-white-100  border border-gray-700">
-            <div className="text-xs font-normal leading-none flex-initial">
-              📖 12 minutes read
-            </div>
-          </div>
-          <div className="w-fit flex justify-center items-center m-1 font-medium py-2 px-3 bg-gray-500 bg-opacity-20 rounded-full text-white-100  border border-gray-700">
-            <div className="text-xs font-normal leading-none flex-initial flex items-center gap-2">
-              Difficulty{" "}
-              <div className="flex">
-                <svg
-                  className="w-4 h-4 text-yellow-300"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 22 20"
-                >
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                </svg>
-                <svg
-                  className="w-4 h-4 text-gray-300 dark:text-gray-500"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 22 20"
-                >
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                </svg>
-                <svg
-                  className="w-4 h-4 text-gray-300 dark:text-gray-500"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 22 20"
-                >
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                </svg>
-              </div>
-            </div>
-          </div>
+          <Chip>
+            {(hovered) => (
+              <>
+                <CursorArrowRaysOutline
+                  className={clsx(
+                    "w-4 [&>path]:transition-all [&>path]:duration-1000",
+                    hovered
+                      ? "[&>path]:fill-yellow-400 stroke-yellow-400"
+                      : "[&>path]:fill-black"
+                  )}
+                />
+                Interactive tutorial
+              </>
+            )}
+          </Chip>
+          <Chip>
+            {(hovered) => (
+              <>
+                <BookOpenOutline
+                  className={clsx(
+                    "w-4 [&>path]:transition-all [&>path]:duration-1000",
+                    hovered
+                      ? "[&>path]:fill-yellow-400 stroke-yellow-400"
+                      : "[&>path]:fill-black"
+                  )}
+                />
+                12 minutes read
+              </>
+            )}
+          </Chip>
+          <Chip>
+            {(hovered) => (
+              <>
+                Difficulty
+                <div className="flex">
+                  <StarSolid
+                    className={clsx(
+                      "w-4 [&>path]:transition-all [&>path]:duration-1000",
+                      hovered && "fill-yellow-400"
+                    )}
+                  />
+                  <StarSolid
+                    className={clsx(
+                      "w-4 [&>path]:transition-all [&>path]:duration-1000",
+                      hovered && "fill-yellow-400"
+                    )}
+                  />
+                  <StarOutline
+                    className={clsx(
+                      "w-4 [&>path]:transition-all [&>path]:duration-1000",
+                      hovered && "stroke-yellow-400"
+                    )}
+                  />
+                </div>
+              </>
+            )}
+          </Chip>
         </div>
       </div>
       <div className="p-8 flex flex-col gap-20 max-w-screen-lg m-auto">
         <div className="flex flex-col gap-4">
           <h3 className="text-4xl font-semibold">Why should I read it</h3>
-          During our small journey we'll
+          During our small journey we&apos;ll
           <ul className="ml-4 space-y-1 text-gray-500 list-inside dark:text-gray-400">
             <li className="flex items-center">
               <svg
@@ -119,14 +173,14 @@ const ExamplesPage = () => {
               Get familiar with XState
             </li>
           </ul>
-          ...and try to find a golden egg 🥚 in the end. So let's kick off
+          ...and try to find a golden egg 🥚 in the end. So let&apos;s kick off
         </div>
         <div className="flex flex-col gap-4">
           <h3 className="text-4xl font-semibold">Data fetching</h3>
           <span>
             One of most common tasks for React developer is to fetch some data
-            from remote endpoint. To be consistent, let's introduce some user
-            story to implement
+            from remote endpoint. To be consistent, let&apos;s introduce some
+            user story to implement
           </span>
           <blockquote className="p-8 my-4 border-l-4 border-gray-300 ">
             <p className=" leading-relaxed text-gray-400">
@@ -135,8 +189,12 @@ const ExamplesPage = () => {
               While posts are being loaded, I need to see loading indicator.
             </p>
           </blockquote>
-          <span>Let's see how you would probably do it with React hooks:</span>
-          <LoadByButtonNativeCode />
+          <span>
+            Let&apos;s see how you would probably do it with React hooks:
+          </span>
+          <div className="my-8">
+            <LoadByButtonNativeCode />
+          </div>
           <span>
             Nothing fancy, we just fetch some data in
             <InlineCode text="loadData" />, store it in
@@ -146,23 +204,24 @@ const ExamplesPage = () => {
         </div>
       </div>
       <div className="bg-gray-100 text-black p-10">
-        <div className="max-w-screen-lg m-auto">
+        <div className="max-w-screen-lg m-auto my-16">
           <p>
-            Now let's first take a look on XState implementation of the same
-            functionality:
+            Now let&apos;s first take a look on XState implementation of the
+            same functionality:
           </p>
-          <LoadByButtonXStateCode />
-          It's cool, but what the magix happens there?
+          <div className="my-8">
+            <LoadByButtonXStateCode />
+          </div>
+          It&apos;s cool, but what the magix happens there?
         </div>
       </div>
       <div className="h-[400px] m-16">
         <CodeCarousel>
-          <div className=" h-[400px]">
-            [XState interactive diagram on the left with description on the
-            right]
+          <div className="w-full h-[100%]">
+            <iframe data-xstate></iframe>
           </div>
           <LoadByButtonXStateCodeDescription />
-          <div className=" h-[100%]">test 2</div>
+
           <div className=" h-[100%]">test 3</div>
           <div className=" h-[100%]">test 4</div>
           <div className=" h-[100%]">test 5</div>

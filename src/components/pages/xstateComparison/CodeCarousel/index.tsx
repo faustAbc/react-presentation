@@ -6,8 +6,6 @@ import {
 } from "framer-motion";
 import { Children, FC, PropsWithChildren, useState } from "react";
 import { motion } from "framer-motion";
-import ChevronLeftIcon from "@heroicons/react/24/outline/ChevronLeftIcon";
-import ChevronRightIcon from "@heroicons/react/24/outline/ChevronRightIcon";
 import clsx from "clsx";
 import { assign, createMachine } from "xstate";
 import { useMachine } from "@xstate/react";
@@ -58,17 +56,16 @@ interface ArrowProps {
 }
 
 const Arrow: FC<ArrowProps> = ({ direction, onClick, disabled }) => {
-  const Icon = direction === "left" ? ChevronLeftIcon : ChevronRightIcon;
+  // const Icon = direction === "left" ? ChevronLeftIcon : ChevronRightIcon;
 
-  return (
-    <Icon
-      onClick={onClick}
-      className={clsx(
-        `w-8 h-8 transition-opacity`,
-        disabled ? "pointer-events-none opacity-0" : "cursor-pointer"
-      )}
-    />
-  );
+  return null;
+  // <Icon
+  //   onClick={onClick}
+  //   className={clsx(
+  //     `w-8 h-8 transition-opacity`,
+  //     disabled ? "pointer-events-none opacity-0" : "cursor-pointer"
+  //   )}
+  // />
 };
 export const CodeCarousel: FC<PropsWithChildren> = ({ children }) => {
   const childrenCount = Children.count(children);
@@ -76,7 +73,6 @@ export const CodeCarousel: FC<PropsWithChildren> = ({ children }) => {
     changeProgressMachine
   );
   const currentPage = progressMachine.context.progress;
-  console.log({ currentPage });
 
   return (
     <div className="">
