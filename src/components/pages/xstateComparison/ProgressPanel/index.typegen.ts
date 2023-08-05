@@ -12,7 +12,11 @@ export interface Typegen0 {
     guards: never;
     services: never;
   };
-  eventsCausingActions: {};
+  eventsCausingActions: {
+    addProgressItems: "ADD_PROGRESS_ITEMS";
+    calculateProgress: "ADD_PROGRESS_ITEMS" | "UPDATE_PROGRESS";
+    updateProgressItems: "UPDATE_PROGRESS";
+  };
   eventsCausingDelays: {};
   eventsCausingGuards: {};
   eventsCausingServices: {};

@@ -9,9 +9,9 @@ export const loadingByButtonXState = {
   ...appendFile(
     "/index.css",
     `:root {
-    --bg-color: unset;
-    --text-color: gray;
-  }`
+
+      --bg-color: #151515;
+      --text-color: gray;  }`
   ),
   "/App.js": {
     code: `import { createMachine, assign } from "xstate";
@@ -66,7 +66,7 @@ export default App;`,
 
 export const LoadByButtonXStateCode = () => (
   <Sandpack
-    theme="light"
+    theme="dark"
     template="react"
     files={loadingByButtonXState}
     options={{

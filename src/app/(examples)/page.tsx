@@ -17,6 +17,10 @@ import StarSolid from "@heroicons/react/24/solid/StarIcon";
 import { createMachine, assign, interpret } from "xstate";
 import clsx from "clsx";
 import { Highlight } from "@/components/common/Highlight";
+import { TestSection } from "@/components/common/TestSection";
+import { useMachine } from "@xstate/react";
+import { useMemo } from "react";
+import { BasicReactAnswers } from "@/components/common/TestSection/test-section.machine";
 
 const fetchMachine = createMachine({
   id: "fetch",
@@ -48,8 +52,6 @@ const fetchMachine = createMachine({
   },
 });
 
-interpret(fetchMachine, { devTools: true }).start({});
-
 if (typeof window !== "undefined") {
   inspect({
     iframe: false,
@@ -59,7 +61,6 @@ if (typeof window !== "undefined") {
 const ExamplesPage = () => {
   return (
     <div className="relative flex flex-col gap-32 mt-16">
-      <div className="h-[400px] w-[300px] rotate-45 blur-3xl bg-blue-700 absolute top-[120px] -left-[240px]"></div>
       <ProgressPanel />
       <div className="p-8 max-w-screen-lg m-auto">
         <h1 className="text-6xl text-center font-semibold">
@@ -70,7 +71,7 @@ const ExamplesPage = () => {
           <Highlight>day-to-day</Highlight>
           tasks implemented in XState and natively in React
         </div>
-        <div className="flex mt-4">
+        <div className="flex mt-4 gap-2">
           <Chip>
             {(hovered) => (
               <>
@@ -131,7 +132,7 @@ const ExamplesPage = () => {
         </div>
       </div>
       <div className="p-8 flex flex-col gap-20 max-w-screen-lg m-auto">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-8">
           <h3 className="text-4xl font-semibold">Why should I read it</h3>
           During our small journey we&apos;ll
           <ul className="ml-4 space-y-1 text-gray-500 list-inside dark:text-gray-400">
@@ -175,8 +176,8 @@ const ExamplesPage = () => {
           </ul>
           ...and try to find a golden egg 🥚 in the end. So let&apos;s kick off
         </div>
-        <div className="flex flex-col gap-4">
-          <h3 className="text-4xl font-semibold">Data fetching</h3>
+        <div className="flex flex-col gap-8">
+          <h3 className="text-4xl font-semibold">React hooks way</h3>
           <span>
             One of most common tasks for React developer is to fetch some data
             from remote endpoint. To be consistent, let&apos;s introduce some
@@ -197,14 +198,36 @@ const ExamplesPage = () => {
           </div>
           <span>
             Nothing fancy, we just fetch some data in
-            <InlineCode text="loadData" />, store it in
-            <InlineCode text="posts" /> variable and trigger it by clicking a
+            <InlineCode>loadData</InlineCode>, store it in
+            <InlineCode>posts</InlineCode> variable and trigger it by clicking a
             button.
           </span>
         </div>
       </div>
-      <div className="bg-gray-100 text-black p-10">
+      <TestSection
+        id="basic-react-questions"
+        options={useMemo(
+          () => [
+            {
+              value: BasicReactAnswers.setPosts,
+              content: <InlineCode>setPosts</InlineCode>,
+            },
+            {
+              value: BasicReactAnswers.posts,
+              content: <InlineCode>posts</InlineCode>,
+              correct: true,
+            },
+            {
+              value: BasicReactAnswers.Posts,
+              content: <InlineCode>Posts</InlineCode>,
+            },
+          ],
+          []
+        )}
+      />
+      <div className="bg-[#151515] text-white p-10">
         <div className="max-w-screen-lg m-auto my-16">
+          <h3 className="text-4xl font-semibold mb-8">XState intro</h3>
           <p>
             Now let&apos;s first take a look on XState implementation of the
             same functionality:

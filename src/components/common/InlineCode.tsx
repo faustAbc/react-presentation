@@ -1,11 +1,7 @@
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
 
-interface InlineCodeProps {
-  text: string;
-}
-
-export const InlineCode: FC<InlineCodeProps> = ({ text }) => (
-  <pre className="inline-block bg-gray-300 px-1 rounded-md  text-black leading-tight">
-    {text}
+export const InlineCode: FC<PropsWithChildren> = ({ children }) => (
+  <pre className="text-neutral-300 inline-block bg-neutral-800 px-2 mx-1 pb-[2px] pt-[3px] rounded-full leading-tight">
+    {children}
   </pre>
 );

@@ -2,8 +2,9 @@ import { WebContainerCSS } from "@/components/common/WebContainer/WebContainerCS
 import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import { GlobalStateProvider } from "@/state";
 
-const inter = Montserrat({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Test",
@@ -20,7 +21,9 @@ export default function RootLayout({
       <head>
         <WebContainerCSS />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={montserrat.className}>
+        <GlobalStateProvider>{children}</GlobalStateProvider>
+      </body>
     </html>
   );
 }

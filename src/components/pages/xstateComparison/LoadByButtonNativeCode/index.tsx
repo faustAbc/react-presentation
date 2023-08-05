@@ -48,22 +48,24 @@ export default App;
 } satisfies SandpackProps["files"];
 
 export const LoadByButtonNativeCode = () => (
-  <Sandpack
-    theme="dark"
-    template="react"
-    files={loadingByButtonNative}
-    options={{
-      externalResources: ["https://cdn.tailwindcss.com"],
-      editorHeight: 490,
-    }}
-    customSetup={{
-      dependencies: {
-        axios: "latest",
-        xstate: "latest",
-        "@xstate/react": "latest",
-      },
-    }}
-  />
+  <div className="xl:mx-[-52px]">
+    <Sandpack
+      theme="dark"
+      template="react"
+      files={loadingByButtonNative}
+      options={{
+        externalResources: ["https://cdn.tailwindcss.com"],
+        editorHeight: 490,
+      }}
+      customSetup={{
+        dependencies: {
+          axios: "latest",
+          xstate: "latest",
+          "@xstate/react": "latest",
+        },
+      }}
+    />
+  </div>
 );
 
 export const loadByButtonXStateCodeDescriptionFiles = {

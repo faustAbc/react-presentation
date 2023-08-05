@@ -9,7 +9,8 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import { assign, createMachine } from "xstate";
 import { useMachine } from "@xstate/react";
-const changeProgressMachine = createMachine({
+
+const carouselMachine = createMachine({
   /** @xstate-layout N4IgpgJg5mDOIC5QGMAWBDAdjAtABwCcB7KAuWHAW3TQEtMwA6WiAGzAGIAPWAF3V5N0AM0EEAFAEYADLICUHNFlyESZWBWp0GzNmADa0gLqJQeIrFq9aRTKZBdEANgAcjAEwBWAMwBOaU5eADQgAJ6ILpKMngC+cSGYRBBw9krYYPjEpORUNKj0YPbmlta29o4IOJIh4ZVO8SBpKlnqmnkFuuxFFlY2dkgOiAAsAOw1iJLeQ3FxQA */
   predictableActionArguments: true,
 
@@ -69,9 +70,7 @@ const Arrow: FC<ArrowProps> = ({ direction, onClick, disabled }) => {
 };
 export const CodeCarousel: FC<PropsWithChildren> = ({ children }) => {
   const childrenCount = Children.count(children);
-  const [progressMachine, sendProgressMachine] = useMachine(
-    changeProgressMachine
-  );
+  const [progressMachine, sendProgressMachine] = useMachine(carouselMachine);
   const currentPage = progressMachine.context.progress;
 
   return (
