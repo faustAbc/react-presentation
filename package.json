@@ -31,6 +31,7 @@
     "xstate": "^4.38.1"
   },
   "devDependencies": {
-    "@svgr/webpack": "^8.0.1"
+    "@svgr/webpack": "^8.0.1",
+    "@tailwindcss/typography": "^0.5.9"
   }
 }

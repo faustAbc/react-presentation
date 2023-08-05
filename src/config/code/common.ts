@@ -9,7 +9,7 @@ const Loader = () => (
   <div role="status" className="py-4">
     <svg
       aria-hidden="true"
-      className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+      className="w-8 h-8 mr-2 animate-spin text-gray-600 fill-blue-600"
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -72,8 +72,7 @@ export default Posts;
       })
     }
     
-  export const Button = ({children, ...rest}) =>  <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" {...rest}>{children}</button>
-
+  export const Button = ({children, ...rest}) =>  <button className="text-white focus:outline-none focus:ring-4 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" {...rest}>{children}</button>
     `,
   },
   "/index.js": {

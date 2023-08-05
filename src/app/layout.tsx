@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { GlobalStateProvider } from "@/state";
+import clsx from "clsx";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -21,7 +22,7 @@ export default function RootLayout({
       <head>
         <WebContainerCSS />
       </head>
-      <body className={montserrat.className}>
+      <body className={clsx(montserrat.className)}>
         <GlobalStateProvider>{children}</GlobalStateProvider>
       </body>
     </html>

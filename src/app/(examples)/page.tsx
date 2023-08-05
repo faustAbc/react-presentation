@@ -135,10 +135,10 @@ const ExamplesPage = () => {
         <div className="flex flex-col gap-8">
           <h3 className="text-4xl font-semibold">Why should I read it</h3>
           During our small journey we&apos;ll
-          <ul className="ml-4 space-y-1 text-gray-500 list-inside dark:text-gray-400">
+          <ul className="ml-4 space-y-1 text-gray-500 list-inside">
             <li className="flex items-center">
               <svg
-                className="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0"
+                className="w-3.5 h-3.5 mr-2 text-green-400 flex-shrink-0"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -151,7 +151,7 @@ const ExamplesPage = () => {
             </li>
             <li className="flex items-center">
               <svg
-                className="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0"
+                className="w-3.5 h-3.5 mr-2 text-green-400 flex-shrink-0"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -163,7 +163,7 @@ const ExamplesPage = () => {
             </li>
             <li className="flex items-center">
               <svg
-                className="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0"
+                className="w-3.5 h-3.5 mr-2 text-green-400 flex-shrink-0"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
