@@ -22,7 +22,7 @@ export default function RootLayout({
       <head>
         <WebContainerCSS />
       </head>
-      <body className={clsx(montserrat.className)}>
+      <body className={montserrat.className}>
         <GlobalStateProvider>{children}</GlobalStateProvider>
       </body>
     </html>

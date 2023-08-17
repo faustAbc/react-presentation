@@ -125,7 +125,7 @@ export const ProgressPanel = () => {
   }, [sendVisibility, progressState.context.progress]);
 
   return (
-    <div className="absolute top-0 right-0 bottom-0 mt-8 mr-8 pointer-events-none">
+    <div className="absolute top-0 right-0 bottom-0 mt-8 mr-8 pointer-events-none hidden lg:block">
       <motion.div
         initial={false}
         animate={visibilityState.value}
@@ -142,7 +142,10 @@ export const ProgressPanel = () => {
         onMouseLeave={() => sendVisibility({ type: "UNHOVER" })}
         className="z-10 top-[120px] right-8 w-[290px] bg-neutral-900/80 rounded-2xl p-4 flex flex-col gap-2 sticky backdrop-blur-md "
       >
-        <span>Progress</span>
+        <div className="flex justify-between">
+          <span>Guide progress</span>
+          <span>0/8</span>
+        </div>
         <div className="w-full bg-neutral-900 rounded-full h-2.5 ">
           <motion.div
             initial={false}

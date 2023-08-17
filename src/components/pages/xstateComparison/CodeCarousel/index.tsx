@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import { assign, createMachine } from "xstate";
 import { useMachine } from "@xstate/react";
+import ChevronLeftIcon from "@heroicons/react/24/outline/ChevronLeftIcon";
+import ChevronRightIcon from "@heroicons/react/24/outline/ChevronRightIcon";
 
 const carouselMachine = createMachine({
   /** @xstate-layout N4IgpgJg5mDOIC5QGMAWBDAdjAtABwCcB7KAuWHAW3TQEtMwA6WiAGzAGIAPWAF3V5N0AM0EEAFAEYADLICUHNFlyESZWBWp0GzNmADa0gLqJQeIrFq9aRTKZBdEANgAcjAEwBWAMwBOaU5eADQgAJ6ILpKMngC+cSGYRBBw9krYYPjEpORUNKj0YPbmlta29o4IOJIh4ZVO8SBpKlnqmnkFuuxFFlY2dkgOiAAsAOw1iJLeQ3FxQA */
@@ -57,16 +59,17 @@ interface ArrowProps {
 }
 
 const Arrow: FC<ArrowProps> = ({ direction, onClick, disabled }) => {
-  // const Icon = direction === "left" ? ChevronLeftIcon : ChevronRightIcon;
+  const Icon = direction === "left" ? ChevronLeftIcon : ChevronRightIcon;
 
-  return null;
-  // <Icon
-  //   onClick={onClick}
-  //   className={clsx(
-  //     `w-8 h-8 transition-opacity`,
-  //     disabled ? "pointer-events-none opacity-0" : "cursor-pointer"
-  //   )}
-  // />
+  return (
+    <Icon
+      onClick={onClick}
+      className={clsx(
+        `w-8 h-8 transition-opacity`,
+        disabled ? "pointer-events-none opacity-0" : "cursor-pointer"
+      )}
+    />
+  );
 };
 export const CodeCarousel: FC<PropsWithChildren> = ({ children }) => {
   const childrenCount = Children.count(children);

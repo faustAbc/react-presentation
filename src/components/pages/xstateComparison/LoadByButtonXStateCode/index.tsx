@@ -9,7 +9,6 @@ export const loadingByButtonXState = {
   ...appendFile(
     "/index.css",
     `:root {
-
       --bg-color: #151515;
       --text-color: gray;  }`
   ),

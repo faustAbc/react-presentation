@@ -48,7 +48,7 @@ export default App;
 } satisfies SandpackProps["files"];
 
 export const LoadByButtonNativeCode = () => (
-  <div className="xl:mx-[-52px]">
+  <div className="max-w-full">
     <Sandpack
       theme="dark"
       template="react"
@@ -117,12 +117,12 @@ export const LoadByButtonXStateCodeDescription = () => (
       },
     }}
     template="react"
-    theme={"dark"}
+    theme="dark"
     files={loadByButtonXStateCodeDescriptionFiles}
   >
-    <SandpackLayout className="test">
+    <SandpackLayout>
       <SandpackCodeViewer />
-      <div className="flex-1">hello</div>
+      <div className="flex-1">123</div>
     </SandpackLayout>
   </SandpackProvider>
 );

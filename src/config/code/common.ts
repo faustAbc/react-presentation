@@ -56,6 +56,9 @@ export default Posts;
       background-color: var(--bg-color);
       font-family: 'Fira Code', monospace;
     }
+    :root {
+      color-scheme: dark;
+    }
     `,
   },
   "/utils.js": {

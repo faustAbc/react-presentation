@@ -1,3 +1,4 @@
+import { Button } from "@/components/common/Button";
 import { createTestSectionMachine } from "@/components/common/TestSection/test-section.machine";
 import { changeProgressMachine } from "@/components/pages/xstateComparison/ProgressPanel";
 import { GlobalStateContext } from "@/state";
@@ -12,6 +13,7 @@ import {
   useEffect,
   useMemo,
 } from "react";
+import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
 type AnswerProps<Selection extends string> = {
   value: Selection;
@@ -33,7 +35,7 @@ const Answer = <Selection extends string>({
     <label
       htmlFor={value}
       className={clsx(
-        "cursor-pointer flex border border-neutral-800 rounded-full p-8 items-center gap-8 transition-colors bg-opacity-20",
+        "cursor-pointer flex border border-neutral-800 rounded-full p-4 items-center gap-2 transition-colors bg-opacity-20",
         selected && "border-yellow-400",
         selected && correct && "bg-yellow-400",
         selected && incorrect && "bg-red-400 border-red-400"
@@ -98,7 +100,6 @@ export const TestSection = <Selection extends string>({
       [correctAnswer, id]
     ),
     {
-      devTools: true,
       actions: {
         onCorrect: () => updateProgress(true),
         onIncorrect: () => updateProgress(false),
@@ -116,19 +117,26 @@ export const TestSection = <Selection extends string>({
   }, [id, sendProgress]);
 
   return (
-    <div className="py-8 bg-amber-598 text-black  border-neutral-800 border-t border-b">
-      <div className="text-white p-8 max-w-screen-lg mx-auto">
-        <div className="my-8">
-          <p>Now let’s verify you understand React hooks implementation:</p>
-          <p>What variable stores posts to display?</p>
-        </div>
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            send("SUBMIT");
-          }}
-          className="flex flex-col gap-2"
-        >
+    <div className="text-white my-16">
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          send("SUBMIT");
+        }}
+        className="max-w-screen-lg mx-auto rounded-[40px] px-16 py-8"
+      >
+        <p className="lead text-yellow-400">
+          <AcademicCapIcon width={48} className="inline stroke-yellow-400" />{" "}
+          Check yourself
+        </p>
+        <legend>
+          <p>
+            Now let’s verify you understand React hooks implementation:
+            <br /> What variable stores posts to display?
+          </p>
+        </legend>
+
+        <fieldset className="flex flex-col gap-2">
           {options.map(({ content, value, correct }) => {
             const selected = value === state.context.selection;
 
@@ -150,13 +158,13 @@ export const TestSection = <Selection extends string>({
               </Answer>
             );
           })}
-          <div className="ml-auto mt-4">
-            <button className="py-2.5 px-5 mr-2 mb-2 font-medium focus:outline-none rounded-full border focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700">
-              Confirm ....... Add explanation if user's not correct
-            </button>
+          <div className="ml-auto mt-4 mb-8">
+            <Button color="primary" variant="outlined">
+              Confirm
+            </Button>
           </div>
-        </form>
-      </div>
+        </fieldset>
+      </form>
     </div>
   );
 };
