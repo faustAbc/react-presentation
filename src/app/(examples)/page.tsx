@@ -238,7 +238,7 @@ const ExamplesPage = () => {
         <div className="h-[400px] m-16">
           <CodeCarousel>
             <div className="h-full flex">
-              <div className="w-1/2">it's diagram</div>
+              <div className="w-1/2">it&apos;s diagram</div>
               <div className="w-1/2">
                 This is a{" "}
                 <strong className="text-yellow-400">
